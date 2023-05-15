@@ -6,8 +6,7 @@
 //
 
 #include <stdio.h>
-#include <SDL2_image/SDL_image.h>
-
+#include <SDL2/SDL_image.h>
 #include "LTexture.hpp"
 #include "Globals.hpp"
 #include "Constants.hpp"
@@ -54,7 +53,7 @@ bool init(){
 }
 
 bool loadMedia(){
-    if(!spriteSheetTexture.loadFromFile("dots.png")){
+    if(!spriteSheetTexture.loadFromFile("../res/dots.png")){
         printf("Failed to load Foo's texture image!\n");
         return false;
     }
@@ -143,4 +142,7 @@ int main(int argc, const char * argv[]) {
                 
         SDL_RenderPresent(renderer);
     }
+
+    close();
+    return 0;
 }

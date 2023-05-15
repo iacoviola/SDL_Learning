@@ -59,7 +59,14 @@ void LTexture::free(){
 
 void LTexture::render(int x, int y, SDL_Rect* clip){
     SDL_Rect renderQuad = {x, y, mWidth, mHeight};
-    SDL_RenderCopy(renderer, mTexture, NULL, &renderQuad);
+
+    //Set clip rendering dimensions
+    if(clip != NULL){
+        renderQuad.w = clip->w;
+		renderQuad.h = clip->h;
+    }
+
+    SDL_RenderCopy(renderer, mTexture, clip, &renderQuad);
 }
 
 void LTexture::setColor(Uint8 red, Uint8 green, Uint8 blue){

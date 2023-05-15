@@ -108,4 +108,5 @@ int main(int argc, const char * argv[]) {
     }
 
     close();
+    return 0;
 }

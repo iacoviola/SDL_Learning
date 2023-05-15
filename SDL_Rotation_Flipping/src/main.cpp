@@ -6,7 +6,6 @@
 //
 
 #include <stdio.h>
-#include <SDL2/SDL_image.h>
 
 #include "LTexture.hpp"
 #include "Globals.hpp"
@@ -15,7 +14,9 @@
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
-LTexture colorsTexture;
+const int WALKING_ANIMATION_FRAMES = 4;
+SDL_Rect spriteClips[WALKING_ANIMATION_FRAMES];
+LTexture spriteTexture;
 
 bool init(){
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -27,14 +28,14 @@ bool init(){
         printf("Warning: linear texture filtering not enabled!");
     }
     
-    window = SDL_CreateWindow("SLD Color Modulation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("SLD Animations VSync", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     
     if(window == NULL){
         printf("Window could not be created! SDL error: %s\n", SDL_GetError());
         return false;
     }
     
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     
     if(renderer == NULL){
         printf("Renderer could not be created! SDL error: %s\n", SDL_GetError());
@@ -54,16 +55,36 @@ bool init(){
 
 bool loadMedia(){
     
-    if(!colorsTexture.loadFromFile("../res/colors.png")){
-        printf("Failed to load background texture image!\n");
+    if(!spriteTexture.loadFromFile("../res/foo.png")){
+        printf("Failed to load front texture image!\n");
         return false;
+    } else {
+        spriteClips[0].x = 0;
+        spriteClips[0].y = 0;
+        spriteClips[0].w = 64;
+        spriteClips[0].h = 205;
+
+        spriteClips[1].x = 64;
+        spriteClips[1].y = 0;
+        spriteClips[1].w = 64;
+        spriteClips[1].h = 205;
+
+        spriteClips[2].x = 128;
+        spriteClips[2].y = 0;
+        spriteClips[2].w = 64;
+        spriteClips[2].h = 205;
+        
+        spriteClips[3].x = 192;
+        spriteClips[3].y = 0;
+        spriteClips[3].w = 64;
+        spriteClips[3].h = 205;
     }
     
     return true;
 }
 
 void close(){
-    colorsTexture.free();
+    spriteTexture.free();
     
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -88,7 +109,7 @@ int main(int argc, const char * argv[]) {
     //Hack to get window to stay up
     SDL_Event e;
     bool quit = false;
-    Uint8 red = 255, green = 255, blue = 255;
+    int frame = 0;
     while( quit == false ){
         while( SDL_PollEvent( &e ) ){
             if( e.type == SDL_QUIT){
@@ -98,24 +119,6 @@ int main(int argc, const char * argv[]) {
                     case SDLK_ESCAPE:
                         quit = true;
                         break;
-                    case SDLK_a:
-                        red += 15;
-                        break;
-                    case SDLK_s:
-                        green += 15;
-                        break;
-                    case SDLK_d:
-                        blue += 15;
-                        break;
-                    case SDLK_q:
-                        red -= 15;
-                        break;
-                    case SDLK_w:
-                        green -= 15;
-                        break;
-                    case SDLK_e:
-                        blue -= 15;
-                        break;
                 }
             }
         }
@@ -123,10 +126,15 @@ int main(int argc, const char * argv[]) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
         
-        colorsTexture.setColor(red, green, blue);
-        colorsTexture.render(0, 0);
-        
+        SDL_Rect* currentClip = &spriteClips[frame / 4];
+        spriteTexture.render((SCREEN_WIDTH - currentClip->w) / 2, (SCREEN_HEIGHT - currentClip->h) / 2, currentClip);
+                
         SDL_RenderPresent(renderer);
+
+        frame++;
+        if(frame / 4 >= WALKING_ANIMATION_FRAMES){
+            frame = 0;
+        }
     }
 
     close();

@@ -7,9 +7,7 @@
 
 //Using SDL and standard IO
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
-//#include <SDL2_ttf/SDL_ttf.h>
-//#include <SDL2_mixer/SDL_mixer.h>
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <string>
 
@@ -32,7 +30,7 @@ SDL_Surface* screenSurface = NULL;
 SDL_Surface* currentSurface = NULL;
 SDL_Surface* keyPressSurface[KEY_PRESS_SURFACE_TOTAL];
 
-std::string path = "res/imgs/";
+std::string path = "../res/";
 std::string imgs[] = {"press.bmp", "up.bmp", "down.bmp", "left.bmp", "right.bmp", "stretch.bmp", "loaded.png"};
 
 bool init(){

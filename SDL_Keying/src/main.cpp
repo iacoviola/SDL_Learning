@@ -115,4 +115,7 @@ int main(int argc, const char * argv[]) {
         
         SDL_RenderPresent(renderer);
     }
+
+    close();
+    return 0;
 }

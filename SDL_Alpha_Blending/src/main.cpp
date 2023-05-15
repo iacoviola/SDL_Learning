@@ -27,7 +27,7 @@ bool init(){
         printf("Warning: linear texture filtering not enabled!");
     }
     
-    window = SDL_CreateWindow("SLD Color Modulation", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("SLD Alpha Blending", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     
     if(window == NULL){
         printf("Window could not be created! SDL error: %s\n", SDL_GetError());
@@ -135,4 +135,7 @@ int main(int argc, const char * argv[]) {
         
         SDL_RenderPresent(renderer);
     }
+    
+    close();
+    return 0;
 }

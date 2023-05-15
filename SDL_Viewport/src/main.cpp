@@ -6,7 +6,7 @@
 //
 
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include <string>
 
@@ -95,7 +95,7 @@ bool loadMedia()
     bool success = true;
 
     //Load texture
-    gTexture = loadTexture( "viewport.png" );
+    gTexture = loadTexture( "../res/viewport.png" );
     if( gTexture == NULL )
     {
         printf( "Failed to load texture image!\n" );
@@ -240,6 +240,5 @@ int main( int argc, char* args[] )
 
     //Free resources and close SDL
     close();
-
     return 0;
 }

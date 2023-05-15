@@ -5,7 +5,10 @@
 //  Created by Emiliano Iacopini on 2/22/23.
 //
 
-#include "main.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <stdio.h>
+#include <string>
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 640;
@@ -14,7 +17,6 @@ const int SCREEN_HEIGHT = 480;
 SDL_Window* window = NULL;
 
 SDL_Surface* screenSurface = NULL;
-SDL_Surface* currentSurface = NULL;
 
 SDL_Renderer* renderer = NULL;
 
@@ -60,7 +62,7 @@ SDL_Texture* loadTexture (std::string path){
     
     SDL_Texture* newTexture = IMG_LoadTexture(renderer, path.c_str());
     if(newTexture == NULL){
-        printf("Unable to create texture from %s! SDL Error: %s\n", path.c_str(), SDL_GetError());
+        printf("Unable to create texture from %s! SDL_image Error: %s\n", path.c_str(), IMG_GetError());
     }
     
     return newTexture;
@@ -69,7 +71,7 @@ SDL_Texture* loadTexture (std::string path){
 bool loadMedia(){
     bool success = true;
     
-    texture = loadTexture("texture.png");
+    texture = loadTexture("../res/texture.png");
     if(texture == NULL){
         printf( "Failed to load texture image!\n" );
         success = false;
@@ -82,9 +84,6 @@ void close(){
     
     SDL_DestroyTexture(texture);
     texture = NULL;
-    
-    SDL_FreeSurface(currentSurface);
-    currentSurface = NULL;
     
     SDL_DestroyWindow(window);
     window = NULL;
