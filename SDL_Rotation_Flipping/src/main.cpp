@@ -14,9 +14,7 @@
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
-const int WALKING_ANIMATION_FRAMES = 4;
-SDL_Rect spriteClips[WALKING_ANIMATION_FRAMES];
-LTexture spriteTexture;
+LTexture arrowTexture;
 
 bool init(){
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -55,36 +53,16 @@ bool init(){
 
 bool loadMedia(){
     
-    if(!spriteTexture.loadFromFile("../res/foo.png")){
+    if(!arrowTexture.loadFromFile("../res/arrow.png")){
         printf("Failed to load front texture image!\n");
         return false;
-    } else {
-        spriteClips[0].x = 0;
-        spriteClips[0].y = 0;
-        spriteClips[0].w = 64;
-        spriteClips[0].h = 205;
-
-        spriteClips[1].x = 64;
-        spriteClips[1].y = 0;
-        spriteClips[1].w = 64;
-        spriteClips[1].h = 205;
-
-        spriteClips[2].x = 128;
-        spriteClips[2].y = 0;
-        spriteClips[2].w = 64;
-        spriteClips[2].h = 205;
-        
-        spriteClips[3].x = 192;
-        spriteClips[3].y = 0;
-        spriteClips[3].w = 64;
-        spriteClips[3].h = 205;
     }
     
     return true;
 }
 
 void close(){
-    spriteTexture.free();
+    arrowTexture.free();
     
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -109,7 +87,8 @@ int main(int argc, const char * argv[]) {
     //Hack to get window to stay up
     SDL_Event e;
     bool quit = false;
-    int frame = 0;
+    double degrees = 0.0;
+    SDL_RendererFlip flipType = SDL_FLIP_NONE;
     while( quit == false ){
         while( SDL_PollEvent( &e ) ){
             if( e.type == SDL_QUIT){
@@ -119,6 +98,25 @@ int main(int argc, const char * argv[]) {
                     case SDLK_ESCAPE:
                         quit = true;
                         break;
+                    case SDLK_a:
+                        degrees -= 60;
+                        break;
+                        
+                    case SDLK_d:
+                        degrees += 60;
+                        break;
+
+                    case SDLK_q:
+                        flipType = SDL_FLIP_HORIZONTAL;
+                        break;
+
+                    case SDLK_w:
+                        flipType = SDL_FLIP_NONE;
+                        break;
+
+                    case SDLK_e:
+                        flipType = SDL_FLIP_VERTICAL;
+                        break;   
                 }
             }
         }
@@ -126,15 +124,9 @@ int main(int argc, const char * argv[]) {
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
         
-        SDL_Rect* currentClip = &spriteClips[frame / 4];
-        spriteTexture.render((SCREEN_WIDTH - currentClip->w) / 2, (SCREEN_HEIGHT - currentClip->h) / 2, currentClip);
+        arrowTexture.render((SCREEN_WIDTH - arrowTexture.getWidth()) / 2, (SCREEN_HEIGHT - arrowTexture.getHeight()) / 2, NULL, degrees, NULL, flipType);
                 
         SDL_RenderPresent(renderer);
-
-        frame++;
-        if(frame / 4 >= WALKING_ANIMATION_FRAMES){
-            frame = 0;
-        }
     }
 
     close();
