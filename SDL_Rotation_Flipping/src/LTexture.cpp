@@ -1,9 +1,12 @@
 //
 //  LTexture.cpp
-//  SDL_Keying
+//  SDL_Rotation_Flipping
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
+#include <string>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include "LTexture.hpp"
 #include "Globals.hpp"

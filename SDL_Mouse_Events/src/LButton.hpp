@@ -1,6 +1,6 @@
 //
-//  LTexture.hpp
-//  SDL_Keying
+//  LButton.hpp
+//  SDL_Mouse_Events
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
@@ -8,9 +8,9 @@
 #ifndef LButton_hpp
 #define LButton_hpp
 
-#include "Constants.hpp"
-#include "Globals.hpp"
 #include <SDL2/SDL.h>
+
+#include "Constants.hpp"
 
 class LButton {
     public:

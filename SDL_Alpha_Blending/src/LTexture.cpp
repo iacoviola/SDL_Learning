@@ -1,9 +1,13 @@
 //
 //  LTexture.cpp
-//  SDL_Keying
+//  SDL_Alpha_Blending
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <string>
 
 #include "LTexture.hpp"
 #include "Globals.hpp"

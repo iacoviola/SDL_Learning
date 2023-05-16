@@ -1,11 +1,12 @@
 //
 //  main.cpp
-//  SDL_Keying
+//  SDL_Color_Modulation
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
 
 #include <stdio.h>
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
 #include "LTexture.hpp"

@@ -5,7 +5,7 @@
 //  Created by Emiliano Iacopini on 3/12/23.
 //
 
-#include <iostream>
+#include <stdio.h>
 #include <SDL2/SDL.h>
 
 const int SCREEN_WIDTH = 640;

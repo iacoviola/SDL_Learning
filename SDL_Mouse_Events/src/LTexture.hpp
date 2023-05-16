@@ -1,6 +1,6 @@
 //
 //  LTexture.hpp
-//  SDL_Keying
+//  SDL_Mouse_Events
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //

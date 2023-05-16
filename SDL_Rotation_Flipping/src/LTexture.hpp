@@ -1,6 +1,6 @@
 //
 //  LTexture.hpp
-//  SDL_Keying
+//  SDL_Rotation_Flipping
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
@@ -10,7 +10,6 @@
 
 #include <string>
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 
 //Texture wrapper class
 class LTexture

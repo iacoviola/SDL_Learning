@@ -1,12 +1,14 @@
 //
 //  main.cpp
-//  SDL_Keying
+//  SDL_Clipping
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
 
 #include <stdio.h>
+#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+
 #include "LTexture.hpp"
 #include "Globals.hpp"
 #include "Constants.hpp"

@@ -1,6 +1,6 @@
 //
 //  Globals.hpp
-//  SDL_Keying
+//  SDL_True_Type_Fonts
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //

@@ -1,3 +1,13 @@
+//
+//  LButton.cpp
+//  SDL_Mouse_Events
+//
+//  Created by Emiliano Iacopini on 3/12/23.
+//
+
+#include <SDL2/SDL.h>
+
+#include "Globals.hpp"
 #include "LButton.hpp"
 
 LButton::LButton(){

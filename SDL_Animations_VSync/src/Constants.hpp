@@ -1,6 +1,6 @@
 //
 //  Constants.hpp
-//  SDL_Keying
+//  SDL_Animation_VSync
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //

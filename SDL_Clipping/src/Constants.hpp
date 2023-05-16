@@ -1,6 +1,6 @@
 //
 //  Constants.hpp
-//  SDL_Keying
+//  SDL_Clipping
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //

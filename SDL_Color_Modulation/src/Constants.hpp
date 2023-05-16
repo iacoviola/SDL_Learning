@@ -1,6 +1,6 @@
 //
 //  Constants.hpp
-//  SDL_Keying
+//  SDL_Color_Modulation
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //

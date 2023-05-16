@@ -1,6 +1,6 @@
 //
 //  Globals.hpp
-//  SDL_Keying
+//  SDL_Alpha_Blending
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //

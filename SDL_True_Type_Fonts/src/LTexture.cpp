@@ -1,9 +1,13 @@
 //
 //  LTexture.cpp
-//  SDL_Keying
+//  SDL_True_Type_Fonts
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
+#include <string>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
 
 #include "LTexture.hpp"
 #include "Globals.hpp"

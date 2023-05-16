@@ -1,6 +1,6 @@
 //
 //  LTexture.hpp
-//  SDL_True_Type_Fonts
+//  SDL_Key_States
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
@@ -24,8 +24,10 @@ class LTexture
         //Loads image at specified path
         bool loadFromFile(std::string path);
 
+        #if defined(SDL_TTF_MAJOR_VERSION)
         //Creates image from font string
         bool loadFromRenderedText(std::string textureText, SDL_Color textColor);
+        #endif
 
         //Deallocates texture
         void free();

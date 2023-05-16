@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  SDL_Alpha_Blending
+//  SDL_Key_States
 //
 //  Created by Emiliano Iacopini on 3/12/23.
 //
@@ -16,8 +16,11 @@
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 
-LTexture frontTexture;
-LTexture backgroundTexture;
+LTexture upTexture;
+LTexture downTexture;
+LTexture pressTexture;
+LTexture rightTexture;
+LTexture leftTexture;
 
 bool init(){
     if(SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -29,7 +32,7 @@ bool init(){
         printf("Warning: linear texture filtering not enabled!");
     }
     
-    window = SDL_CreateWindow("SLD Alpha Blending", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    window = SDL_CreateWindow("SLD Mouse Events", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     
     if(window == NULL){
         printf("Window could not be created! SDL error: %s\n", SDL_GetError());
@@ -55,26 +58,41 @@ bool init(){
 }
 
 bool loadMedia(){
-    
-    if(!frontTexture.loadFromFile("../res/fadeout.png")){
-        printf("Failed to load front texture image!\n");
+
+    if(!upTexture.loadFromFile("../res/up.png")){
+        printf("Failed to load button texture image!\n");
         return false;
-    } else {
-        //set standard alpha blending mode
-        frontTexture.setBlendMode(SDL_BLENDMODE_BLEND);
     }
 
-    if(!backgroundTexture.loadFromFile("../res/fadein.png")){
-        printf("Failed to load background texture image!\n");
+    if(!downTexture.loadFromFile("../res/down.png")){
+        printf("Failed to load button texture image!\n");
+        return false;
+    }
+
+    if(!pressTexture.loadFromFile("../res/press.png")){
+        printf("Failed to load button texture image!\n");
         return false;
     }
     
+    if(!rightTexture.loadFromFile("../res/right.png")){
+        printf("Failed to load button texture image!\n");
+        return false;
+    }
+
+    if(!leftTexture.loadFromFile("../res/left.png")){
+        printf("Failed to load button texture image!\n");
+        return false;
+    }
+
     return true;
 }
 
 void close(){
-    frontTexture.free();
-    backgroundTexture.free();
+    upTexture.free();
+    downTexture.free();
+    pressTexture.free();
+    rightTexture.free();
+    leftTexture.free();
     
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
@@ -99,7 +117,7 @@ int main(int argc, const char * argv[]) {
     //Hack to get window to stay up
     SDL_Event e;
     bool quit = false;
-    Uint8 alpha = 255;
+    LTexture* currentTexture = NULL;
     while( quit == false ){
         while( SDL_PollEvent( &e ) ){
             if( e.type == SDL_QUIT){
@@ -109,35 +127,32 @@ int main(int argc, const char * argv[]) {
                     case SDLK_ESCAPE:
                         quit = true;
                         break;
-                    case SDLK_w:
-                        if(alpha + 15 >= 255){
-                            alpha = 255;
-                        } else {
-                            alpha += 15;
-                        }
-                        break;
-                    case SDLK_s:
-                        if(alpha - 15 <= 0){
-                            alpha = 0;
-                        } else {
-                            alpha -= 15;
-                        }
-                        break;
                 }
             }
+
+            const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+            if(currentKeyStates[SDL_SCANCODE_UP]){
+                currentTexture = &upTexture;
+            } else if (currentKeyStates[SDL_SCANCODE_DOWN]){
+                currentTexture = &downTexture;
+            } else if (currentKeyStates[SDL_SCANCODE_LEFT]){
+                currentTexture = &leftTexture;
+            } else if (currentKeyStates[SDL_SCANCODE_RIGHT]){
+                currentTexture = &rightTexture;
+            } else {
+                currentTexture = &pressTexture;
+            }
+
         }
         
         SDL_SetRenderDrawColor(renderer, 0xFF, 0xFF, 0xFF, 0xFF);
         SDL_RenderClear(renderer);
-        
-        backgroundTexture.render(0, 0);
-        
-        frontTexture.setAlpha(alpha);
-        frontTexture.render(0, 0);
+
+        currentTexture->render(0 , 0);
         
         SDL_RenderPresent(renderer);
     }
-    
+
     close();
     return 0;
 }
