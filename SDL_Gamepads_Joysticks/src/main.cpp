@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <SDL2/SDL.h>
+#include <cmath>
 #include <SDL2/SDL_image.h>
 
 #include "LTexture.hpp"
@@ -91,7 +92,7 @@ void close(){
     SDL_Quit();
 }
 
-int main(int argc, const char * argv[]) {
+int main(int argc, char * argv[]) {
     if(!init()){
         printf("Failed to initialize!\n");
         return 0;
